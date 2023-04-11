@@ -10,21 +10,29 @@ def main():
     now = datetime.now()
     time = now.strftime("%H:%M:%S")
     
-    cities = input("Podaje nazwę miasta: ")
     imgw = 'https://danepubliczne.imgw.pl/api/data/synop'
     r = get(imgw)
     data = loads(r.text)
+
+    print("-----------------------------------")
+    print("Lista dostępnych miast dla pogody:")
+    print("-----------------------------------")
+    for city in data:
+        print(city['stacja'])
+    print("================================")
+    
+    cities = input("Podaje nazwę miasta lub kilku: ")
     
     head = [
-        ['Dane dla dnia: ', 'Dla godziny: ']
-    ]
+    ['Dane dla dnia: ', 'Dla godziny: ']
+        ]
 
-    #head.append([today, time])
-    head.append([cities['data_pomiaru'], cities['godzina_pomiaru']])
+    head.append([today, time])
+    #head.append([cities['data_pomiaru'], cities['godzina_pomiaru']])
     htable = AsciiTable(head)
 
     body = [
-        ['Miasto', 'Temperatura', 'Cisnienie', 'Godzina z bazy danych IMGW']
+        ['Miasto', 'Temperatura', 'Cisnienie', 'Godzina pomiaru']
     ]
 
     for city in data:
@@ -33,11 +41,11 @@ def main():
                 city['stacja'],
                 city['temperatura'],
                 city['cisnienie'],
-                city['godzina_pomiaru']
+                city['godzina_pomiaru']+':00'
             ])
     table = AsciiTable(body)
     print(htable.table)
     print(table.table)
-
+    
 if __name__ == '__main__':
     main() 

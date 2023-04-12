@@ -21,31 +21,55 @@ def main():
         print(city['stacja'])
     print("================================")
     
-    cities = input("Podaje nazwę miasta lub kilku: ")
+    cities = input("Podaje nazwę miasta lub kilku. Jeśli chcesz wyświetlić pogodą dla wszystkich miast wpisz 'all' : ")
     
-    head = [
-    ['Dane dla dnia: ', 'Dla godziny: ']
+    if cities == '':
+        print("*** Nie podałeś miasta ***")
+    elif cities == "all":
+        head = [
+        ['Dane dla dnia: ', 'Dla godziny: ']
+            ]
+
+        head.append([today, time])
+        htable = AsciiTable(head)
+
+        body = [
+            ['Miasto', 'Temperatura', 'Cisnienie', 'Godzina pomiaru']
         ]
 
-    head.append([today, time])
-    #head.append([cities['data_pomiaru'], cities['godzina_pomiaru']])
-    htable = AsciiTable(head)
-
-    body = [
-        ['Miasto', 'Temperatura', 'Cisnienie', 'Godzina pomiaru']
-    ]
-
-    for city in data:
-        if city['stacja'] in cities:
+        for city in data:
             body.append([
                 city['stacja'],
                 city['temperatura'],
                 city['cisnienie'],
-                city['godzina_pomiaru']+':00'
+                city['godzina_pomiaru']
             ])
-    table = AsciiTable(body)
-    print(htable.table)
-    print(table.table)
+        table = AsciiTable(body)
+        print(htable.table)
+        print(table.table)
+    else:
+        head = [
+        ['Dane dla dnia: ', 'Dla godziny: ']
+            ]
+
+        head.append([today, time])
+        htable = AsciiTable(head)
+
+        body = [
+            ['Miasto', 'Temperatura', 'Cisnienie', 'Godzina pomiaru']
+        ]
+
+        for city in data:
+            if city['stacja'] in cities:
+                body.append([
+                    city['stacja'],
+                    city['temperatura']+ ' °C',
+                    city['cisnienie']+ ' hPa',
+                    city['godzina_pomiaru']+':00'
+                ])
+        table = AsciiTable(body)
+        print(htable.table)
+        print(table.table)
     
 if __name__ == '__main__':
     main() 

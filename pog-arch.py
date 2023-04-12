@@ -25,7 +25,8 @@ def main():
     
     if cities == '':
         print("*** Nie podałeś miasta ***")
-    elif cities == "all":
+
+    elif cities == 'all':
         head = [
         ['Dane dla dnia: ', 'Dla godziny: ']
             ]
@@ -47,6 +48,7 @@ def main():
         table = AsciiTable(body)
         print(htable.table)
         print(table.table)
+
     else:
         head = [
         ['Dane dla dnia: ', 'Dla godziny: ']

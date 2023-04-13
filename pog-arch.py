@@ -18,13 +18,18 @@ def main():
     print("Lista dostępnych miast dla pogody:")
     print("-----------------------------------")
     for city in data:
-        print(city['stacja'])
+        #print(city['stacja'])
+        cities_list = (city['stacja'])
+        print(cities_list)
     print("================================")
     
     cities = input("Podaje nazwę miasta lub kilku. Jeśli chcesz wyświetlić pogodą dla wszystkich miast wpisz 'all' : ")
     
     if cities == '':
-        print("*** Nie podałeś miasta ***")
+        print("***************************")
+        print("***  Nie podałeś miasta ***")
+        print("*** Spróbuj jeszcze raz ***")
+        print("***************************")
 
     elif cities == 'all':
         head = [
